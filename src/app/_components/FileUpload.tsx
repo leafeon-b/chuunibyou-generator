@@ -3,6 +3,7 @@
 import type { ChangeEvent, FormEvent } from "react";
 import { useState } from "react";
 import Image from "next/image";
+import { generateText } from "../lib/actions";
 
 interface FileUploadProps {
   onFileUpload: (result: string) => void;
@@ -43,16 +44,13 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
 
       // 結果を返す前に2秒間待機
       await new Promise((resolve) => setTimeout(resolve, 2000));
+      if (!file) return;
+      const response = await generateText(formData);
+      console.log(`response`, response);
 
-      // const response = await fetch("/api/upload", {
-      //   method: "POST",
-      //   body: formData,
-      // });
-
-      // const data = await response.json();
-      const data = { text: file.name };
-      onFileUpload(data.text);
+      onFileUpload(response);
     } catch (err) {
+      console.log(err);
       setError("ファイルのアップロードに失敗しました。");
     } finally {
       setLoading(false);
