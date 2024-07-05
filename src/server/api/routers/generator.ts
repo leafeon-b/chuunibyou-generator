@@ -46,9 +46,17 @@ export const generatorRouter = createTRPCRouter({
         },
       },
     ];
-    const result = await model.generateContent([prompt, ...imageParts]);
+    const result = (
+      await model.generateContent([prompt, ...imageParts])
+    ).response.text();
+    console.log(`result: ${result}`);
     // result.response.text()で生成されたテキストデータからtitleを取り出す
-    const resultJson: Titles = JSON.parse(result.response.text()) as Titles;
-    return resultJson.titles;
+    try {
+      const resultJson: Titles = JSON.parse(result) as Titles;
+      return resultJson.titles;
+    } catch (err) {
+      console.error(err);
+      throw new Error("タイトルの取得に失敗しました");
+    }
   }),
 });
