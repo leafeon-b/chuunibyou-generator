@@ -53,6 +53,13 @@ export const generatorRouter = createTRPCRouter({
     // result.response.text()で生成されたテキストデータからtitleを取り出す
     try {
       const resultJson: Titles = JSON.parse(result) as Titles;
+      if (
+        !resultJson.titles ||
+        !Array.isArray(resultJson.titles) ||
+        resultJson.titles.length === 0
+      ) {
+        throw new Error("タイトルの取得に失敗しました");
+      }
       return resultJson.titles;
     } catch (err) {
       console.error(err);
