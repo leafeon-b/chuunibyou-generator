@@ -8,7 +8,7 @@ interface Titles {
   titles: string[];
 }
 
-const MAX_IMAGE_SIZE = 5; // 5MB
+const MAX_IMAGE_SIZE = 10; // 5MB
 
 const generativeAI = new GoogleGenerativeAI(process.env.API_KEY ?? "");
 
@@ -24,7 +24,7 @@ const fileSchema = z.object({
     .custom<File>()
     // ファイルサイズを制限したい場合
     .refine((file) => sizeInMB(file?.size ?? 0) <= MAX_IMAGE_SIZE, {
-      message: "ファイルサイズは最大5MBです",
+      message: "ファイルサイズは最大10MBです",
     }),
 });
 
