@@ -4,6 +4,10 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 import { GoogleGenerativeAI, type Part } from "@google/generative-ai";
 
+interface Titles {
+  titles: string[];
+}
+
 const MAX_IMAGE_SIZE = 5; // 5MB
 
 const generativeAI = new GoogleGenerativeAI(process.env.API_KEY ?? "");
@@ -60,7 +64,8 @@ export const generatorRouter = createTRPCRouter({
       },
     ];
     const result = await model.generateContent([prompt, ...imageParts]);
-
-    return result.response.text();
+    // result.response.text()で生成されたテキストデータからtitleを取り出す
+    const resultJson: Titles = JSON.parse(result.response.text()) as Titles;
+    return resultJson.titles;
   }),
 });

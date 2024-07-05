@@ -2,7 +2,7 @@
 
 import { api } from "~/trpc/server";
 
-export async function generateText(formData: FormData): Promise<string> {
+export async function generateText(formData: FormData): Promise<string[]> {
   if (formData instanceof FormData) {
     const file = formData.get("file");
     if (file instanceof File) {

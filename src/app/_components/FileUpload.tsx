@@ -6,7 +6,7 @@ import Image from "next/image";
 import { generateText } from "../lib/actions";
 
 interface FileUploadProps {
-  onFileUpload: (result: string) => void;
+  onFileUpload: (result: string[]) => void;
 }
 
 const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
