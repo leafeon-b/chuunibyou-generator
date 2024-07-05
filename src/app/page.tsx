@@ -1,7 +1,7 @@
 "use client";
 
 import { unstable_noStore as noStore } from "next/cache";
-import FileUpload from "./_components/FileUpload";
+import SubmitForm from "./_components/SubmitForm";
 import { useState } from "react";
 import GeneratedTitles from "./_components/GeneratedTitles";
 
@@ -10,13 +10,13 @@ export default function Home() {
 
   const [result, setResult] = useState<string[]>([]);
 
-  const handleFileUpload = (result: string[]) => {
+  const handleSubmit = (result: string[]) => {
     setResult(result);
   };
 
   return (
     <div>
-      <FileUpload onFileUpload={handleFileUpload} />
+      <SubmitForm onSubmit={handleSubmit} />
       <GeneratedTitles titles={result} />
     </div>
   );

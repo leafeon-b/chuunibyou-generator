@@ -5,11 +5,11 @@ import { useState } from "react";
 import Image from "next/image";
 import { generateText } from "../lib/actions";
 
-interface FileUploadProps {
-  onFileUpload: (result: string[]) => void;
+interface SubmitFormProps {
+  onSubmit: (result: string[]) => void;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
+const SubmitForm: React.FC<SubmitFormProps> = ({ onSubmit }) => {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -48,10 +48,10 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
       const response = await generateText(formData);
       console.log(`response`, response);
 
-      onFileUpload(response);
+      onSubmit(response);
     } catch (err) {
       console.log(err);
-      setError("ファイルのアップロードに失敗しました。");
+      setError("リクエストの送信に失敗しました。");
     } finally {
       setLoading(false);
     }
@@ -77,11 +77,11 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload }) => {
         disabled={loading}
         className="mt-2 rounded bg-blue-500 p-2 text-white"
       >
-        {loading ? "アップロード中..." : "アップロード"}
+        {loading ? "生成中..." : "タイトルを生成する"}
       </button>
       {error && <p className="text-red-500">{error}</p>}
     </form>
   );
 };
 
-export default FileUpload;
+export default SubmitForm;
