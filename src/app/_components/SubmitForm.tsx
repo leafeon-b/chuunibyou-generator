@@ -42,8 +42,6 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ onSubmit }) => {
       const formData = new FormData();
       formData.append("file", file);
 
-      // 結果を返す前に2秒間待機
-      await new Promise((resolve) => setTimeout(resolve, 2000));
       if (!file) return;
       const response = await generateText(formData);
       console.log(`response`, response);
