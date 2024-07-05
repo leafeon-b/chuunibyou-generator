@@ -56,11 +56,19 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 rounded-lg bg-gray-100 p-6 shadow-md"
+    >
       <div className="flex flex-col space-y-2">
-        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
+        />
         {preview && (
-          <div className="relative h-40 w-40">
+          <div className="relative mt-4 h-40 w-40">
             <Image
               src={preview}
               alt="プレビューの表示"
@@ -73,7 +81,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ onSubmit }) => {
       <button
         type="submit"
         disabled={loading}
-        className="mt-2 rounded bg-blue-500 p-2 text-white"
+        className="w-full rounded bg-blue-500 py-2 text-white transition duration-300 hover:bg-blue-700"
       >
         {loading ? "生成中..." : "タイトルを生成する"}
       </button>
